@@ -52,5 +52,8 @@ These are the commands for executing the below agents
 
 @DevOpsAgent create a GitHub Actions CI/CD pipeline for my .NET 8 Web API using docker build and deploy to Azure Web App
 
+@ImpactAnalysisAgent evaluate the impact of converting a synchronous API to async in the PaymentService
+
+
 
 ---
