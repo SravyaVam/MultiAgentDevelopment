@@ -50,4 +50,7 @@ These are the commands for executing the below agents
 
 @architectureagent Design a microservices architecture for this e-commerce system with API contracts and data models.
 
+@DevOpsAgent create a GitHub Actions CI/CD pipeline for my .NET 8 Web API using docker build and deploy to Azure Web App
+
+
 ---
