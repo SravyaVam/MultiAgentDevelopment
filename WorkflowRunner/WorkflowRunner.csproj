@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="workflow\output\**" />
+    <EmbeddedResource Remove="workflow\output\**" />
+    <None Remove="workflow\output\**" />
+  </ItemGroup>
+
 </Project>

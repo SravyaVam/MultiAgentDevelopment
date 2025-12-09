@@ -545,52 +545,55 @@ class Program
 
     static void ClearOutput()
     {
-        try
+        Console.WriteLine("🔄 Clearing output folder...");
+        
+        if (!Directory.Exists(OutputPath))
         {
-            if (Directory.Exists(OutputPath))
+            Directory.CreateDirectory(OutputPath);
+            Console.WriteLine("✅ Output folder is ready!");
+            return;
+        }
+        
+        int deletedCount = 0;
+        int lockedCount = 0;
+        
+        // Delete files first
+        foreach (var file in Directory.GetFiles(OutputPath, "*", SearchOption.AllDirectories))
+        {
+            try
             {
-                Console.WriteLine("🔄 Attempting to clear output folder...");
-                
-                // Try to kill any running processes first
-                try
-                {
-                    var dotnetProcesses = System.Diagnostics.Process.GetProcessesByName("dotnet");
-                    var cmdProcesses = System.Diagnostics.Process.GetProcessesByName("cmd");
-                    
-                    foreach (var process in dotnetProcesses.Concat(cmdProcesses))
-                    {
-                        try
-                        {
-                            process.Kill();
-                            process.WaitForExit(2000);
-                        }
-                        catch { /* Ignore if can't kill */ }
-                    }
-                    
-                    // Wait longer for files to be released
-                    System.Threading.Thread.Sleep(2000);
-                }
-                catch { /* Ignore process kill errors */ }
-                
-                Directory.Delete(OutputPath, true);
-                Directory.CreateDirectory(OutputPath);
-                Console.WriteLine("✅ Output folder cleared! Ready for fresh workflow.");
+                File.Delete(file);
+                deletedCount++;
             }
-            else
+            catch
             {
-                Console.WriteLine("ℹ️ Output folder already empty.");
+                lockedCount++;
             }
         }
-        catch (UnauthorizedAccessException)
+        
+        // Delete directories
+        foreach (var dir in Directory.GetDirectories(OutputPath))
         {
-            Console.WriteLine("⚠️ Cannot clear output folder - files are in use.");
-            Console.WriteLine("💡 Close any terminal windows running the API, then try 'clear' again.");
-            Console.WriteLine("💡 Or restart this workflow program to force cleanup.");
+            try
+            {
+                Directory.Delete(dir, true);
+                deletedCount++;
+            }
+            catch
+            {
+                lockedCount++;
+            }
         }
-        catch (Exception ex)
+        
+        if (lockedCount > 0)
         {
-            Console.WriteLine($"❌ Error clearing output: {ex.Message}");
-            Console.WriteLine("💡 Try stopping any running processes first.");
+            Console.WriteLine($"⚠️ Warning: {lockedCount} items are locked and couldn't be deleted.");
+            Console.WriteLine("💡 Close all terminal windows and IDEs, then run 'clear' again.");
+            Console.WriteLine("💡 Or manually delete the 'workflow\\output' folder.");
+        }
+        else
+        {
+            Console.WriteLine($"✅ Output folder cleared! ({deletedCount} items removed)");
         }
     }
 
