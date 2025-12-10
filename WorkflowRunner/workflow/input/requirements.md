@@ -1,34 +1,35 @@
-# Project Requirements
+# E-Commerce System Requirements
 
-## Mini E-commerce API
+## Business Overview
+Build a modern e-commerce platform that allows customers to browse products, manage their accounts, and place orders.
 
-Create a simple e-commerce Web API with the following features:
+## Core Features Required
 
-### Core Features
+### User Management
 - User registration and authentication
-- Product catalog management
+- User profile management
+- Secure login system
+
+### Product Management
+- Product catalog with search and filtering
+- Product details and pricing
+- Inventory management
+
+### Shopping Experience
 - Shopping cart functionality
-- Order processing
-- Payment integration (mock)
+- Order placement and tracking
+- Payment processing integration
 
-### Business Requirements
-- Users should be able to browse products
-- Users should be able to add products to cart
-- Users should be able to place orders
-- Admin should be able to manage products
-- System should track order history
-
-### Technical Requirements
-- .NET 8 Web API
-- Clean Architecture
-- Entity Framework Core
-- JWT Authentication
-- RESTful endpoints
+## Technical Requirements
+- RESTful API architecture
+- Clean Architecture principles
 - Swagger documentation
+- Unit testing coverage
+- Database integration
+- Security best practices
 
-### Success Criteria
-- All endpoints working
-- Proper error handling
-- Security implemented
-- Database schema created
-- Unit tests coverage > 80%
+## Success Criteria
+- API endpoints are functional and testable
+- Swagger UI provides interactive documentation
+- Code follows industry best practices
+- System is deployment-ready
